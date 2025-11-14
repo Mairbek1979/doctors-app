@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03DACF732EBFAF66001DB619 /* ColorHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DACF722EBFAF66001DB619 /* ColorHex.swift */; };
 		03E42C392EBA1A9E006D5704 /* Doctors_ListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42C382EBA1A9E006D5704 /* Doctors_ListApp.swift */; };
 		03E42C3D2EBA1AA0006D5704 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03E42C3C2EBA1AA0006D5704 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03DACF722EBFAF66001DB619 /* ColorHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHex.swift; sourceTree = "<group>"; };
 		03E42C352EBA1A9E006D5704 /* Doctors List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Doctors List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03E42C382EBA1A9E006D5704 /* Doctors_ListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctors_ListApp.swift; sourceTree = "<group>"; };
 		03E42C3C2EBA1AA0006D5704 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 		03E42C2C2EBA1A9E006D5704 = {
 			isa = PBXGroup;
 			children = (
+				03DACF722EBFAF66001DB619 /* ColorHex.swift */,
 				03E42C382EBA1A9E006D5704 /* Doctors_ListApp.swift */,
 				03E42C3C2EBA1AA0006D5704 /* Assets.xcassets */,
 				03E42C522EBA1E3A006D5704 /* Resources */,
@@ -150,6 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03DACF732EBFAF66001DB619 /* ColorHex.swift in Sources */,
 				03E42C392EBA1A9E006D5704 /* Doctors_ListApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

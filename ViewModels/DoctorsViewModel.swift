@@ -21,11 +21,11 @@ final class DoctorsViewModel: ObservableObject {
             let data = try Data(contentsOf: url)
             
             let decoder = JSONDecoder()
-            
             let response = try decoder.decode(Response.self, from: data)
             
             self.doctors = response.data.users
             print("Загружено врачей: \(self.doctors.count)")
+            
         } catch {
             print("Ошибка парсинга JSON: \(error)")
         }

@@ -17,6 +17,7 @@ struct Doctor: Codable, Identifiable {
     let seniority: Int?
     let textChatPrice: Int?
     let videoChatPrice: Int?
+    let homePrice: Int?
     let hospitalPrice: Int?
     let avatar: String?
     let higherEducation: [Education]?
@@ -34,6 +35,7 @@ struct Doctor: Codable, Identifiable {
             case seniority
             case textChatPrice = "text_chat_price"
             case videoChatPrice = "video_chat_price"
+            case homePrice = "home_price"
             case hospitalPrice = "hospital_price"
             case avatar
             case higherEducation = "higher_education"
@@ -43,7 +45,6 @@ struct Doctor: Codable, Identifiable {
         }
 }
 
-// Специализация врача
 struct Specialization: Codable {
     let id: Int?
     let name: String?
@@ -55,7 +56,6 @@ struct Specialization: Codable {
     }
 }
 
-// Образование
 struct Education: Codable {
     let id: Int?
     let university: String?
@@ -75,7 +75,6 @@ struct Education: Codable {
     }
 }
 
-// Опыт работы
 struct WorkExperience: Codable {
     let id: Int?
     let organization: String?
