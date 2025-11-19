@@ -21,7 +21,7 @@ struct PriceView: View {
                     .foregroundColor(Color(hex: "#212121"))
                     .frame(maxWidth: .infinity)
                     .frame(height: 45)
-                    .padding(.top, 44)
+                    .padding(.top, -55)
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 8) {
@@ -95,5 +95,5 @@ struct PriceRow: View {
 }
 
 #Preview {
-    PriceView(doctor: Doctor.preview)
+    MainTabView()
 }

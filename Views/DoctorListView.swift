@@ -10,7 +10,7 @@ struct DoctorListView: View {
     
     private let H: CGFloat = 17
     
-    @State private var sortOption: String? = nil
+    @State private var sortOption: String = "price"
     @State private var searchDoctor: String = ""
     @State private var goToSearchResults = false
     
@@ -153,12 +153,12 @@ struct DoctorListView: View {
                             
                             HStack(spacing: 0) {
                                 Button {
-                                    sortOption = (sortOption == "price") ? nil : "price"
+                                    sortOption = "price"
                                 } label: {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 6)
                                             .fill(sortOption == "price" ? Color(hex: "FF537C"): .white)
-                                            .frame(width: 113, height: 32)
+                                            .frame(maxWidth: .infinity, minHeight: 36)
                                         
                                         HStack(spacing: 4) {
                                             Text("По цене")
@@ -179,12 +179,12 @@ struct DoctorListView: View {
                                     .frame(width: 1, height: 32)
                                 
                                 Button {
-                                    sortOption = (sortOption == "experience") ? nil : "experience"
+                                    sortOption = "experience"
                                 } label: {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 6)
                                             .fill(sortOption == "experience" ? Color(hex: "FF537C") : .white)
-                                            .frame(width: 115, height: 32)
+                                            .frame(maxWidth: .infinity, minHeight: 36)
                                         
                                         Text("По стажу")
                                             .font(.custom("SFProDisplay-Regular", size: 14))
@@ -201,12 +201,12 @@ struct DoctorListView: View {
                                     .frame(width: 1, height: 32)
                                 
                                 Button {
-                                    sortOption = (sortOption == "rating") ? nil : "rating"
+                                    sortOption = "rating"
                                 } label: {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 6)
                                             .fill(sortOption == "rating" ? Color(hex: "FF537C") : .white)
-                                            .frame(width: 113, height: 32)
+                                            .frame(maxWidth: .infinity, minHeight: 36)
                                         
                                         Text("По рейтингу")
                                             .font(.custom("SFProDisplay-Regular", size: 14))

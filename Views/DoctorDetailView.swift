@@ -21,8 +21,8 @@ struct DoctorDetailView: View {
                 .font(.system(size: 20, weight: .medium))
                 .foregroundColor(Color(hex: "#212121"))
                 .frame(maxWidth: .infinity)
-                .frame(height: 45)
-                .padding(.top, 44)
+                .frame(height: 45, alignment: .center)
+                .padding(.top, -55)
             
             ScrollView {
                 VStack(spacing: 16) {
@@ -49,8 +49,8 @@ struct DoctorDetailView: View {
                     }
                     .frame(height: 50)
                     .padding(.horizontal, 16)
-                    .padding(.top, 32)
-                    .padding(.bottom, 24)
+                    .padding(.top, 24)
+                    .padding(.bottom, 12)
                     
                     VStack(alignment: .leading, spacing: 10) {
                         
@@ -145,9 +145,11 @@ struct DoctorDetailView: View {
                                 .frame(height: 24)
                                 .multilineTextAlignment(.trailing)
                         }
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 18)
-                        .frame(maxWidth: 343)
+                        .padding(.leading, 16)
+                        .padding(.trailing, 16)
+                        .padding(.top, 18)
+                        .padding(.bottom, 18)
+                        .frame(width: 375, height: 60)
                         .background(Color.white)
                         .cornerRadius(8)
                         .overlay(
