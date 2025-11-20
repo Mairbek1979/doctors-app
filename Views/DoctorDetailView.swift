@@ -9,107 +9,91 @@ import SwiftUI
 
 struct DoctorDetailView: View {
     @StateObject private var viewModel: DoctorDetailViewModel
-    
+
     init(doctor: Doctor) {
-        _viewModel = StateObject(wrappedValue: DoctorDetailViewModel(doctor: doctor))
+        _viewModel = StateObject(
+            wrappedValue: DoctorDetailViewModel(doctor: doctor)
+        )
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
-            
-            Text(viewModel.doctor.specialization.first?.name ?? "Специальность не указана")
-                .font(.system(size: 20, weight: .medium))
-                .foregroundColor(Color(hex: "#212121"))
-                .frame(maxWidth: .infinity)
-                .frame(height: 45, alignment: .center)
-                .padding(.top, -55)
-            
+
             ScrollView {
                 VStack(spacing: 16) {
-                    
+
                     HStack(alignment: .center, spacing: 16) {
-                        
-                        AsyncImage(url: URL(string: viewModel.doctor.avatar ?? "")) { image in
+
+                        AsyncImage(
+                            url: URL(string: viewModel.doctor.avatar ?? "")
+                        ) { image in
                             image.resizable().scaledToFill()
                         } placeholder: {
                             Color.gray.opacity(0.2)
                         }
                         .frame(width: 60, height: 60)
                         .clipShape(Circle())
-                        
+
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(viewModel.doctor.lastName)
+                            Text(viewModel.lastNameTitle)
                                 .font(.headline)
-                            
-                            Text("\(viewModel.doctor.firstName) \(viewModel.doctor.patronymic ?? "")")
+
+                            Text(viewModel.nameAndPatronymic)
                                 .font(.headline)
                         }
-                        
+
                         Spacer()
                     }
                     .frame(height: 50)
                     .padding(.horizontal, 16)
                     .padding(.top, 24)
                     .padding(.bottom, 12)
-                    
+
                     VStack(alignment: .leading, spacing: 10) {
-                        
-                        let seniority = viewModel.doctor.seniority ?? 0
-                        let work = viewModel.doctor.workExperience?.first
-                        
-                        let years = seniority > 0 ? seniority : {
-                            guard let start = work?.startDate else { return 0 }
-                            let end = work?.endDate ?? Int(Date().timeIntervalSince1970)
-                            let startDate = Date(timeIntervalSince1970: TimeInterval(start))
-                            let endDate = Date(timeIntervalSince1970: TimeInterval(end))
-                            return Calendar.current.dateComponents([.year], from: startDate, to: endDate).year ?? 0
-                        }()
-                        
+
                         HStack(spacing: 8) {
                             Image("time")
                                 .resizable()
                                 .frame(width: 24, height: 24)
-                            
-                            Text("Опыт работы: \(years) лет")
+
+                            Text("Опыт работы: \(viewModel.doctor.experience) лет")
                                 .font(.system(size: 14))
                                 .foregroundColor(Color(hex: "#858585"))
                                 .lineSpacing(10)
                         }
-                        
-                        if let degree = viewModel.doctor.scientificDegreeLabel, !degree.isEmpty {
+
+                        if let degree = viewModel.degreeTitle {
                             HStack(spacing: 8) {
                                 Image("aid")
                                     .resizable()
                                     .frame(width: 24, height: 24)
-                                
+
                                 Text(degree)
                                     .font(.system(size: 14))
                                     .foregroundColor(Color(hex: "#858585"))
                                     .lineSpacing(10)
                             }
                         }
-                        
-                        if let university = viewModel.doctor.higherEducation?.first?.university,
-                           !university.isEmpty {
+
+                        if let university = viewModel.university {
                             HStack(spacing: 8) {
                                 Image("graduation_icon")
                                     .resizable()
                                     .frame(width: 24, height: 24)
-                                
+
                                 Text(university)
                                     .font(.system(size: 14))
                                     .foregroundColor(Color(hex: "#858585"))
                                     .lineSpacing(10)
                             }
                         }
-                        
-                        if let workOrgan = viewModel.doctor.workExperience?.first?.organization,
-                           !workOrgan.isEmpty {
+
+                        if let workOrgan = viewModel.organization {
                             HStack(spacing: 8) {
                                 Image("location_icon")
                                     .resizable()
                                     .frame(width: 24, height: 24)
-                                
+
                                 Text(workOrgan)
                                     .font(.system(size: 14))
                                     .foregroundColor(Color(hex: "#858585"))
@@ -119,15 +103,7 @@ struct DoctorDetailView: View {
                     }
                     .padding(.horizontal)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    let prices = [
-                        viewModel.doctor.textChatPrice ?? Int.max,
-                        viewModel.doctor.videoChatPrice ?? Int.max,
-                        viewModel.doctor.hospitalPrice ?? Int.max
-                    ]
-                    
-                    let minPrice = prices.min() ?? 0
-                    
+
                     NavigationLink {
                         PriceView(doctor: viewModel.doctor)
                     } label: {
@@ -136,10 +112,10 @@ struct DoctorDetailView: View {
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(Color(hex: "#212121"))
                                 .frame(height: 24)
-                            
+
                             Spacer()
-                            
-                            Text("от \(minPrice) ₽")
+
+                            Text("от \(viewModel.doctor.minPrice) ₽")
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(Color(hex: "#212121"))
                                 .frame(height: 24)
@@ -161,7 +137,7 @@ struct DoctorDetailView: View {
                     .padding(.bottom, 24)
                 }
             }
-            
+
             Button(action: {}) {
                 Text("Записаться")
                     .font(.system(size: 16, weight: .semibold))
@@ -174,6 +150,8 @@ struct DoctorDetailView: View {
             .padding(.horizontal, 16)
             .padding(.bottom)
         }
+        .navigationTitle(viewModel.specializationTitle)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

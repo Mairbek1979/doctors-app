@@ -9,7 +9,7 @@ import SwiftUI
 struct SearchResultsView: View {
     let searchText: String
     let doctors: [Doctor]
-    
+
     private var filtered: [Doctor] {
         let q = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         return doctors.filter { doc in
@@ -19,14 +19,14 @@ struct SearchResultsView: View {
             }
         }
     }
-    
+
     var body: some View {
         ZStack {
             Color(.systemGray6).ignoresSafeArea()
-            
+
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 16) {
-                    
+
                     HStack {
                         Spacer()
                         Text(searchText.capitalized)
@@ -35,14 +35,18 @@ struct SearchResultsView: View {
                             .padding(.top)
                         Spacer()
                     }
-                    
+
                     ForEach(filtered) { doctor in
-                        NavigationLink(destination: DoctorDetailView(doctor: doctor)) {
+                        NavigationLink(
+                            destination: DoctorDetailView(doctor: doctor)
+                        ) {
                             VStack(alignment: .leading, spacing: 12) {
-                                
+
                                 HStack(alignment: .top, spacing: 12) {
-                                    
-                                    AsyncImage(url: URL(string: doctor.avatar ?? "")) { image in
+
+                                    AsyncImage(
+                                        url: URL(string: doctor.avatar ?? "")
+                                    ) { image in
                                         image.resizable().scaledToFill()
                                     } placeholder: {
                                         Color.gray.opacity(0.2)
@@ -51,53 +55,66 @@ struct SearchResultsView: View {
                                     .clipShape(Circle())
 
                                     VStack(alignment: .leading, spacing: 4) {
-                                        
-                                        Text("\(doctor.lastName)")
-                                            .font(.custom("SFProDisplay-Semibold", size: 16))
-                                            .foregroundColor(Color(hex: "212121"))
 
-                                        Text("\(doctor.firstName) \(doctor.patronymic ?? "")")
-                                            .font(.custom("SFProDisplay-Semibold", size: 16))
-                                            .foregroundColor(Color(hex: "212121"))
+                                        Text("\(doctor.lastName)")
+                                            .font(
+                                                .custom(
+                                                    "SFProDisplay-Semibold",
+                                                    size: 16
+                                                )
+                                            )
+                                            .foregroundColor(
+                                                Color(hex: "212121")
+                                            )
+
+                                        Text(
+                                            "\(doctor.firstName) \(doctor.patronymic ?? "")"
+                                        )
+                                        .font(
+                                            .custom(
+                                                "SFProDisplay-Semibold",
+                                                size: 16
+                                            )
+                                        )
+                                        .foregroundColor(Color(hex: "212121"))
 
                                         HStack(spacing: 2) {
                                             ForEach(0..<5) { index in
-                                                Image(systemName: index < Int(doctor.rating ?? 0) ? 
-                                                      "star.fill" : "star")
-                                                    .resizable()
-                                                    .frame(width: 12, height: 12)
-                                                    .foregroundColor(Color(hex: "FF537C"))
+                                                Image(
+                                                    systemName: index
+                                                        < Int(
+                                                            doctor.rating ?? 0
+                                                        ) ? "star.fill" : "star"
+                                                )
+                                                .resizable()
+                                                .frame(width: 12, height: 12)
+                                                .foregroundColor(
+                                                    Color(hex: "FF537C")
+                                                )
                                             }
                                         }
 
-                                        let seniority = doctor.seniority ?? 0
-                                        let work = doctor.workExperience?.first
-                                        
-                                        let years = seniority > 0
-                                        ? seniority
-                                        : {
-                                            guard let start = work?.startDate else { return 0 }
-                                            let end = work?.endDate ?? Int(Date().timeIntervalSince1970)
-                                            let startDate = Date(timeIntervalSince1970: TimeInterval(start))
-                                            let endDate = Date(timeIntervalSince1970: TimeInterval(end))
-                                            return Calendar.current.dateComponents([.year], from: startDate, to: endDate).year ?? 0
-                                        }()
+                                        Text(
+                                            "\(doctor.specialization.first?.name ?? "") • стаж \(doctor.experience) лет"
+                                        )
+                                        .font(
+                                            .custom(
+                                                "SFProDisplay-Regular",
+                                                size: 14
+                                            )
+                                        )
+                                        .foregroundColor(Color(hex: "858585"))
 
-                                        Text("\(doctor.specialization.first?.name ?? "") • стаж \(years) лет")
-                                            .font(.custom("SFProDisplay-Regular", size: 14))
-                                            .foregroundColor(Color(hex: "858585"))
-
-                                        let prices = [
-                                            doctor.textChatPrice ?? Int.max,
-                                            doctor.videoChatPrice ?? Int.max,
-                                            doctor.hospitalPrice ?? Int.max
-                                        ]
-                                        
-                                        let minPrice = prices.min() ?? 0
-
-                                        Text("от \(minPrice) ₽")
-                                            .font(.custom("SFProDisplay-Semibold", size: 16))
-                                            .foregroundColor(Color(hex: "212121"))
+                                        Text("от \(doctor.minPrice) ₽")
+                                            .font(
+                                                .custom(
+                                                    "SFProDisplay-Semibold",
+                                                    size: 16
+                                                )
+                                            )
+                                            .foregroundColor(
+                                                Color(hex: "212121")
+                                            )
                                     }
 
                                     Spacer()
@@ -109,7 +126,12 @@ struct SearchResultsView: View {
 
                                 Button(action: {}) {
                                     Text("Записаться")
-                                        .font(.custom("SFProDisplay-Semibold", size: 16))
+                                        .font(
+                                            .custom(
+                                                "SFProDisplay-Semibold",
+                                                size: 16
+                                            )
+                                        )
                                         .foregroundColor(.white)
                                         .frame(maxWidth: .infinity)
                                         .frame(height: 56)
