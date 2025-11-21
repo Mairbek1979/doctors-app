@@ -79,6 +79,7 @@ struct DoctorListView: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(Color(hex: "EBEBEB"), lineWidth: 1)
                         )
+                        .padding(.horizontal, H)
 
                         NavigationLink(
                             destination: SearchResultsView(
@@ -246,6 +247,7 @@ struct DoctorListView: View {
                                 }
                             }
                         }
+                        .padding(.horizontal, H)
 
                         VStack(spacing: 16) {
                             ForEach(viewModel.filteredDoctors) { doctor in

@@ -30,10 +30,17 @@ final class DoctorsViewModel: ObservableObject {
 
         if !q.isEmpty {
             list = list.filter { doc in
-                let specs = doc.specialization ?? []
-                return specs.contains { spec in
-                    (spec.name ?? "").localizedCaseInsensitiveContains(q)
+                let fullName = "\(doc.lastName) \(doc.firstName) \(doc.patronymic ?? "")".lowercased()
+                
+                let matchesName = fullName.contains(q.lowercased())
+                
+                let matchesSpecialization = (doc.specialization ?? [])
+                    .compactMap { $0.name?.lowercased() }
+                        .filter { !$0.isEmpty }
+                        .contains { $0.contains(q.lowercased())
                 }
+                
+                return matchesName || matchesSpecialization
             }
         }
         return list
